@@ -45,8 +45,41 @@ def search_medals(cntry, yr, cntry_raw):
 #             if row[9] == int(yr) and row[14] != 'NA':
 #                 data[row[7]] = {}
 
+def overall(cntries):
+    all_years = {}
+    for cntry in cntries:
+        with open(args.filepath, 'r') as file:
+            next(file)
+            all_years[cntry] = {}
+            for row in file:
+                row = [int(i) if i.isdecimal() else i for i in row.split('\t')]
+                if row[7] == cntry and row[14][:-1] != 'NA':
+                    if row[9] not in all_years[cntry]:
+                        all_years[cntry][row[9]] = 1
+                    else:
+                        all_years[cntry][row[9]]+= 1
 
+    best_years = {}
+    for cntry in all_years:
+        best_year = 0
+        for yr in all_years[cntry]:
+            if best_year == 0 or all_years[cntry][yr] > all_years[cntry][best_year]:
+                best_year = yr
+        best_years[cntry] = {best_year: all_years[cntry][best_year]}
 
+    for cntry in best_years:
+        for yr in best_years[cntry]:
+            print(f"Best year for {cntry} is {yr}, {best_years[cntry][yr]} medals")
+
+    if not args.output is None:
+        path = filedialog.askdirectory()
+        with open(path + '/' + args.output[0], 'w', newline='') as output:
+            writer = csv.writer(output)
+            header = ['Country', 'Best year', 'Medals']
+            writer.writerow(header)
+            for cntry in best_years:
+                for yr in best_years[cntry]:
+                    writer.writerow([cntry, yr, best_years[cntry][yr]])
 
 
 parser = argparse.ArgumentParser()
@@ -70,6 +103,10 @@ if not args.total is None:
     if not year.isdecimal():
         print("Year is invalid, please enter the decimal number (between 1904 and 2024)")
     total_output(year)
+
+if not args.overall is None:
+    countries = [i[0:3].upper() for i in args.overall]
+    overall(countries)
 
 
 #Tasks, needed to complete the level 1: complete validation, add extreme cases (there was no olympics at entered year, entered country doesn't exist or doesn't have medalists, etc.), think about formating the output into a table, find out how to get the path normally (without printing the full path)
