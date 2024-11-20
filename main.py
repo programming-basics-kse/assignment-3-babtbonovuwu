@@ -36,6 +36,18 @@ def search_medals(cntry, yr, cntry_raw):
                     writer.writerow(i)
                 writer.writerow([f"For year {yr}, {cntry_raw} has gained {medals['Gold']} gold medals, {medals['Silver']} silver medals and {medals['Bronze']} bronze medals"])
 
+# def total_output(yr):
+#     with open(args.filepath, 'r') as file:
+#         next(file)
+#         data = {}
+#         for row in file:
+#             row = [int(i) if i.isdecimal() else i for i in row.split('\t')]
+#             if row[9] == int(yr) and row[14] != 'NA':
+#                 data[row[7]] = {}
+
+
+
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filepath', type=str, help='The path to the file with data')
@@ -52,5 +64,12 @@ if not args.medals is None:
     if not year.isdecimal():
         print("Year is invalid, please enter the decimal number (between 1904 and 2024)")
     search_medals(country, year, args.medals[0])
+
+if not args.total is None:
+    year = args.total[0]
+    if not year.isdecimal():
+        print("Year is invalid, please enter the decimal number (between 1904 and 2024)")
+    total_output(year)
+
 
 #Tasks, needed to complete the level 1: complete validation, add extreme cases (there was no olympics at entered year, entered country doesn't exist or doesn't have medalists, etc.), think about formating the output into a table, find out how to get the path normally (without printing the full path)
