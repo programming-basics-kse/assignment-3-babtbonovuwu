@@ -2,6 +2,7 @@ import argparse
 import os
 from tkinter import filedialog
 import csv
+import validation
 
 def search_medals(cntry, yr, cntry_raw):
     with open(args.filepath, 'r') as file:
@@ -93,20 +94,25 @@ args = parser.parse_args()
 
 if not args.medals is None:
     country = args.medals[0][:3].upper()
+    if not validation.validation_country(country):
+        quit()
     year = args.medals[1]
-    if not year.isdecimal():
-        print("Year is invalid, please enter the decimal number (between 1904 and 2024)")
+    if not validation.year_validation(year):
+        quit()
     search_medals(country, year, args.medals[0])
 
 if not args.total is None:
     year = args.total[0]
-    if not year.isdecimal():
-        print("Year is invalid, please enter the decimal number (between 1904 and 2024)")
+    if not validation.year_validation(year):
+        quit()
     total_output(year)
 
 if not args.overall is None:
-    countries = [i[0:3].upper() for i in args.overall]
+    countries = [i for i in args.overall]
+    for country in countries:
+        if not validation.validation_country(country):
+            quit()
     overall(countries)
 
 
-#Tasks, needed to complete the level 1: complete validation, add extreme cases (there was no olympics at entered year, entered country doesn't exist or doesn't have medalists, etc.), think about formating the output into a table, find out how to get the path normally (without printing the full path)
+#Tasks, needed to complete the level 1: think about formating the output into a table)
