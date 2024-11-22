@@ -11,7 +11,7 @@ def validation_country(country):
             guby = guby.split(',')
             full.append(guby[0].upper())
             alp3.append(guby[1].upper())
-            alp2.append(guby[2].upper())
+            alp2.append(guby[2][:-1].upper())
     if country not in full and country not in alp3 and country not in alp2:
         print('Such country is not included in the data set.')
     else:
