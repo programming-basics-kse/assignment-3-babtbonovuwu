@@ -61,17 +61,16 @@ def overall(cntries):
                     else:
                         all_years[cntry][row[9]]+= 1
 
-    best_years = {}
+    best_years = []
     for cntry in all_years:
         best_year = 0
         for yr in all_years[cntry]:
             if best_year == 0 or all_years[cntry][yr] > all_years[cntry][best_year]:
                 best_year = yr
-        best_years[cntry] = {best_year: all_years[cntry][best_year]}
+        best_years.append([cntry, yr, all_years[cntry][best_year]])
 
-    for cntry in best_years:
-        for yr in best_years[cntry]:
-            print(f"Best year for {cntry} is {yr}, {best_years[cntry][yr]} medals")
+    best_years_formated = pd.DataFrame(best_years, columns=['Country', 'Best year', 'Medals'])
+    print(best_years_formated)
 
     if not args.output is None:
         path = filedialog.askdirectory()
@@ -79,9 +78,8 @@ def overall(cntries):
             writer = csv.writer(output)
             header = ['Country', 'Best year', 'Medals']
             writer.writerow(header)
-            for cntry in best_years:
-                for yr in best_years[cntry]:
-                    writer.writerow([cntry, yr, best_years[cntry][yr]])
+            for row in best_years:
+                writer.writerow(row)
 
 
 parser = argparse.ArgumentParser()
