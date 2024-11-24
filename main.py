@@ -53,6 +53,15 @@ def total_output(yr):
     pd.set_option('display.max_columns',None)
     pd.set_option('display.show_dimensions',False)
     print(pd.DataFrame(data))
+    if not args.output is None:
+        path = filedialog.askdirectory()
+        with open(path + '/' + args.output[0], 'w', newline='') as output:
+            writer = csv.writer(output)
+            writer.writerow(['Country', 'Gold', 'Silver', 'Bronze'])
+            for country in data:
+                list_2 = list(data[country].values())
+                list_2.insert(0, country)
+                writer.writerow(list_2)
 
 def overall(cntries):
     all_years = {}
@@ -88,6 +97,45 @@ def overall(cntries):
             for row in best_years:
                 writer.writerow(row)
 
+def interactive():
+    while True:
+        cntry = input('You are now in interactive mode, please enter country name(or to stop the program enter "quit"): ')
+        if cntry.upper() == 'QUIT':
+            break
+
+        while not validation.validation_country(cntry):
+            cntry = input('please enter country name(or to stop the program enter "quit"): ')
+            if cntry.lower() == 'quit':
+                break
+        cntry = validation.validation_country(cntry)
+        first_game = [0,0]
+        all_games ={}
+        all_medals = {"Gold" : 0, "Silver" : 0, "Bronze" : 0}
+        with open(os.getcwd() + '/' + args.filename, 'r') as file:
+            for row in file:
+                row = row.split('\t')
+                if row[7] == cntry:
+                    if first_game[0] == 0 or int(row[9]) < int(first_game[0]):
+                        first_game = [row[9], row[11]]
+                    if row[8] not in all_games and row[14][:-1] != "NA":
+                        all_games[row[8]] = 0
+                        all_games[row[8]] += 1
+                    elif row[14][:-1] != "NA":
+                        all_games[row[8]] += 1
+                    if row[14][:-1] != "NA":
+                        all_medals[row[14][:-1]] +=1
+
+        all_medals["Gold"] = all_medals["Gold"]/len(all_games)
+        all_medals["Silver"] = all_medals["Silver"]/len(all_games)
+        all_medals["Bronze"] = all_medals["Bronze"]/len(all_games)
+
+        best_year = max(all_games, key=all_games.get)
+        worst_year = min(all_games, key=all_games.get)
+
+        print(f"First game:", *first_game)
+        print(f"Best game: {best_year}. Medals: {all_games[best_year]}")
+        print(f"Worst game: {worst_year}. Medals: {all_games[worst_year]}")
+        print('Average amount of medals:', all_medals)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filename', type=str, help='The path to the file with data')
@@ -125,6 +173,5 @@ if not args.overall is None:
 
     overall(countries_processed)
 
-
-#Tasks, needed to complete the level 1: think about formating the output into a table)
-#Make overall output in table
+if args.interactive:
+    interactive()
