@@ -38,14 +38,21 @@ def search_medals(cntry, yr, cntry_raw):
                     writer.writerow(i)
                 writer.writerow([f"For year {yr}, {cntry_raw} has gained {medals['Gold']} gold medals, {medals['Silver']} silver medals and {medals['Bronze']} bronze medals"])
 
-# def total_output(yr):
-#     with open(args.filepath, 'r') as file:
-#         next(file)
-#         data = {}
-#         for row in file:
-#             row = [int(i) if i.isdecimal() else i for i in row.split('\t')]
-#             if row[9] == int(yr) and row[14] != 'NA':
-#                 data[row[7]] = {}
+def total_output(yr):
+    with open(os.getcwd() + '/' + args.filename, 'r') as file:
+        next(file)
+        data = {}
+        for row in file:
+            row = [int(i) if i.isdecimal() else i for i in row.split('\t')]
+            if row[9] == int(yr) and row[14][:-1] != 'NA':
+                if row[7] not in data:
+                    data[row[7]] = {"Gold" : 0, "Silver" : 0, "Bronze" : 0}
+                    data[row[7]][row[14][:-1]] += 1
+                else:
+                    data[row[7]][row[14][:-1]] += 1
+    pd.set_option('display.max_columns',None)
+    pd.set_option('display.show_dimensions',False)
+    print(pd.DataFrame(data))
 
 def overall(cntries):
     all_years = {}

@@ -30,7 +30,7 @@ def year_validation(year):
         for guby in nogami:
             guby = guby.split('\t')
             years.add(guby[9])
-        if year not in years:
+        if str(year) not in years:
             print('Such year is not included in the data set.')
             return False
         else:
