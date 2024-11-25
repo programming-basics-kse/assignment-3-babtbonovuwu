@@ -99,12 +99,12 @@ def overall(cntries):
 
 def interactive():
     while True:
-        cntry = input('You are now in interactive mode, please enter country name(or to stop the program enter "quit"): ')
+        cntry = input('You are now in interactive mode, please enter the country.(If you will to stop the program enter "quit"): ')
         if cntry.upper() == 'QUIT':
             break
 
         while not validation.validation_country(cntry):
-            cntry = input('please enter country name(or to stop the program enter "quit"): ')
+            cntry = input('Please, enter the country (or to stop the program enter "quit"): ')
             if cntry.lower() == 'quit':
                 break
         cntry = validation.validation_country(cntry)
@@ -137,6 +137,17 @@ def interactive():
         print(f"Worst game: {worst_year}. Medals: {all_games[worst_year]}")
         print('Average amount of medals:', all_medals)
 
+def manual():
+    print()
+    print('''This program was created to read the Olympics database straight from the first year to nowadays. Here are little tips of how to use the program:''')
+    print("1. To get the result of particular country in particular year, enter '-medals country year' in the command line")
+    print("2. To get the total result of particular year, enter '-total year' in the command line")
+    print("3. To get the most successful year for each country, enter '-overall country country...' in the command line")
+    print("4. Interactive mode provides you with the possibility to search for country's stats non-stop."
+          "To switch to the interactive mode, enter '--interactive' in the command line")
+    print("5. To get the instruction of usage program, enter '--manual' in the command line")
+    print()
+
 parser = argparse.ArgumentParser()
 parser.add_argument('filename', type=str, help='The path to the file with data')
 parser.add_argument('-medals', '--medals', type=str, nargs=2, help="Enter '-medals country year' to see the particular country's result")
@@ -144,6 +155,7 @@ parser.add_argument('-output', '--output', type=str, nargs=1, help="Enter '-outp
 parser.add_argument('-total', '--total', type=int, nargs=1, help="Enter '-total year' to see the total result of Olympics")
 parser.add_argument('-overall', '--overall', type=str, nargs='*', help="Enter '-overall country country...' to see the most successful year for each country")
 parser.add_argument('--interactive', action='store_true', help="Enter '--interactive' to switch to the interactive mode (where you can enter the country and see its stats)")
+parser.add_argument('--manual', action='store_true', help="Enter '--manual' to get the instruction of usage program")
 args = parser.parse_args()
 
 if not args.medals is None:
@@ -175,3 +187,6 @@ if not args.overall is None:
 
 if args.interactive:
     interactive()
+
+if args.manual:
+    manual()
