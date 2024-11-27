@@ -24,6 +24,10 @@ def search_medals(cntry, yr, cntry_raw):
                     if row[14][:-1] != 'NA':
                         medals[row[14][:-1]] += 1
 
+        if not data:
+            print(f"{cntry_raw} doesn't have any medalists in {yr}.")
+            quit()
+
         data_formated = pd.DataFrame(data, columns=['Name', 'Sport', 'Medal'])
         print(data_formated)
         print(f"For year {yr}, {cntry_raw} has gained {medals['Gold']} gold medals, {medals['Silver']} silver medals and {medals['Bronze']} bronze medals")
@@ -125,9 +129,9 @@ def interactive():
                     if row[14][:-1] != "NA":
                         all_medals[row[14][:-1]] +=1
 
-        all_medals["Gold"] = all_medals["Gold"]/len(all_games)
-        all_medals["Silver"] = all_medals["Silver"]/len(all_games)
-        all_medals["Bronze"] = all_medals["Bronze"]/len(all_games)
+        all_medals["Gold"] = round(all_medals["Gold"]/len(all_games), 2)
+        all_medals["Silver"] = round(all_medals["Silver"]/len(all_games), 2)
+        all_medals["Bronze"] = round(all_medals["Bronze"]/len(all_games), 2)
 
         best_year = max(all_games, key=all_games.get)
         worst_year = min(all_games, key=all_games.get)

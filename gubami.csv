@@ -2,13 +2,13 @@ Country,NOC,ISO code
 Afghanistan,AFG,AF
 Albania,ALB,AL
 Algeria,ALG,DZ
-American Samoa*,ASA,AS
+American Samoa,ASA,AS
 Andorra,AND,AD
 Angola,ANG,AO
 Antigua and Barbuda,ANT,AG
 Argentina,ARG,AR
 Armenia,ARM,AM
-Aruba*,ARU,AW
+Aruba,ARU,AW
 Australia,AUS,AU
 Austria,AUT,AT
 Azerbaijan,AZE,AZ
@@ -19,7 +19,7 @@ Barbados,BAR,BB
 Belarus,BLR,BY
 Belgium,BEL,BE
 Belize,BIZ,BZ
-Bermuda*,BER,BM
+Bermuda,BER,BM
 Benin,BEN,BJ
 Bhutan,BHU,BT
 Bolivia,BOL,BO
@@ -35,7 +35,7 @@ Cambodia,CAM,KH
 Cameroon,CMR,CM
 Canada,CAN,CA
 Cape Verde,CPV,CV
-Cayman Islands*,CAY,KY
+Cayman Islands,CAY,KY
 Central African Republic,CAF,CF
 Chad,CHA,TD
 Chile,CHI,CL
@@ -80,7 +80,7 @@ Guinea-Bissau,GBS,GW
 Guyana,GUY,GY
 Haiti,HAI,HT
 Honduras,HON,HN
-Hong Kong*,HKG,HK
+Hong Kong,HKG,HK
 Hungary,HUN,HU
 Iceland,ISL,IS
 India,IND,IN
@@ -129,7 +129,7 @@ Namibia,NAM,
 Nauru,NRU,NR
 Nepal,NEP,NP
 Netherlands,NED,NL
-Netherlands Antilles*,AHO,AN
+Netherlands Antilles,AHO,AN
 New Zealand,NZL,NZ
 Nicaragua,NCA,NI
 Niger,NIG,NE
@@ -146,7 +146,7 @@ Peru,PER,PE
 Philippines,PHI,PH
 Poland,POL,PL
 Portugal,POR,PT
-Puerto Rico*,PUR,PR
+Puerto Rico,PUR,PR
 Qatar,QAT,QA
 Romania,ROM,RO
 Russia,RUS,RU
@@ -196,7 +196,7 @@ Uzbekistan,UZB,UZ
 Vanuatu,VAN,VU
 Venezuela,VEN,VE
 Vietnam,VIE,VN
-Virgin Islands*,ISV,VI
+Virgin Islands,ISV,VI
 Yemen,YEM,YE
 Zambia,ZAM,ZM
 Zimbabwe,ZIM,ZW
